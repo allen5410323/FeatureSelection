@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import warnings
 from sklearn.model_selection import cross_val_score
@@ -10,6 +11,7 @@ import MyPlot as p
 import joblib
 
 warnings.filterwarnings("ignore")
+matplotlib.use("Agg")
 
 
 class FeatureSelection:
@@ -52,7 +54,7 @@ class FeatureSelection:
         
         # final training
         self.regressor=[]
-        plt.figure('in')
+        p.MyPlot.NewFig('prediction result')
         for pos in range(self.pos):   
             regressor=LinearSVR(epsilon=5, C=self.X_gBest[0+pos], fit_intercept=False)
             regressor.fit(self.Xtrain[pos][:, self.X_feature_best], self.Ytrain[pos])
